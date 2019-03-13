@@ -1,4 +1,3 @@
-const User = require('../models/user');
 const Account = require('../models/account');
 const Card = require('../models/card');
 
