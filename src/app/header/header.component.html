@@ -1,0 +1,17 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="/"></ion-back-button>
+  </ion-buttons>
+  <ion-title>
+    {{title}}
+  </ion-title>
+  <ion-button *ngIf="!isAuthenticated" (click)="login()"
+              slot="end" size="small" color="light"
+  >Login
+  </ion-button>
+  <ion-button *ngIf="isAuthenticated" (click)="logout()"
+              slot="end" size="small" color="light"
+    >Logout
+  </ion-button>
+
+</ion-toolbar>

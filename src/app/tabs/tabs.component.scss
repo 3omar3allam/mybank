@@ -1,0 +1,8 @@
+ion-tab-bar ion-tab-button{
+  ion-icon, ion-label{
+    color: #7a7a7a;
+    &:hover, &:active {
+      color: #3a3a3a;
+    }
+  }
+}
