@@ -362,6 +362,30 @@ class FakeDb {
         await Account.deleteMany({});
     }
 
+    // async fillOneUser(){
+    //     await this.users.forEach(async (user, i, arr) => {
+    //         const {password, ...rest} = user;
+    //         const hash = await bcrypt.hash(password, 10);
+    //         const record = new User({
+    //             password: hash,
+    //             ...rest,
+    //         });
+    //         await record.save(async err => {
+    //             if(!err && i === arr.length-1) await this.addCards();
+    //         });
+    //     });
+    //
+    //     await this.cards.forEach(async (card,i,arr) => {
+    //         const record = new Card(card);
+    //         await record.save(async)
+    //     })
+    //
+    //     const user = await User.findOne({username:'kristinasmith5'});
+    //     const card1 = await Card.
+    // }
+
+
+
     async addUsers(){
         await this.users.forEach(async (user, i, arr) => {
             const {password, ...rest} = user;
@@ -370,7 +394,7 @@ class FakeDb {
                 password: hash,
                 ...rest,
             });
-            record.save(async err => {
+            await record.save(async err => {
                 if(!err && i === arr.length-1) await this.addCards();
             });
         });
@@ -388,11 +412,11 @@ class FakeDb {
             try {
                 await record.save();
                 users[userIndex].cards.push(record);
-                await users[userIndex].save();
+                await users[userIndex].save(async err =>{
+                    if(!err && i === arr.length-1) await this.addAccounts();
+                });
             }catch(err) {
                 if(err.name !== 'ParallelSaveError') console.log(err);
-            }finally {
-                if (i === arr.length - 1) await this.addAccounts();
             }
         });
     }
@@ -428,8 +452,8 @@ class FakeDb {
     }
 
     async fillDb() {
-        await this.cleanDb();
-        await this.addUsers();
+        // await this.cleanDb();
+        // await this.addUsers();
     }
 }
 

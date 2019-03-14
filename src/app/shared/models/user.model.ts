@@ -1,7 +1,7 @@
 import {Account, Card} from './data.model';
 
 
-export class User{
+export class User {
   firstName: String;
   lastName: String;
   username: String;

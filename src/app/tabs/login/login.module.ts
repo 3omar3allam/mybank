@@ -1,36 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
-
 import { IonicModule } from '@ionic/angular';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {RouterModule, Routes} from '@angular/router';
 
-import { CardsPage } from './cards.page';
+import { LoginPage } from './login.page';
 import {SharedModule} from '../../shared/shared.module';
-import {CardDetailsPage} from './card-details/card-details.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CardsPage,
-  },
-  {
-    path: ':id',
-    component: CardDetailsPage,
-  },
+    component: LoginPage
+  }
 ];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     SharedModule,
     RouterModule.forChild(routes),
   ],
   declarations: [
-    CardsPage,
-    CardDetailsPage,
-  ]
+    LoginPage,
+  ],
 })
-export class CardsPageModule {}
+export class LoginPageModule {}

@@ -1,32 +1,90 @@
 import {Injectable} from '@angular/core';
 import {AuthService} from './auth.service';
-import {TabsModule} from '../tabs/tabs.module';
 import {HttpClient} from '@angular/common/http';
-import {User} from './models/user.model';
 import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
 
 @Injectable({
-  providedIn: TabsModule,
+  providedIn: 'root',
 })
-export class DataService{
-
-  user: User;
+export class DataService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService
-  ){}
+    private authService: AuthService,
+  ) {}
 
-  getBrief(){
-    this.user = this.authService.getLoggedUser();
-    if(!this.user || this.authService.getAuth()) return;
-    this.http.get<any>(environment.API_URL + 'accounts')
-      .subscribe(
-        response => {
-          this.user.accounts = response.accounts;
-        },
-        response => {
-          this.user = null;
-        });
+  getAccounts(): Observable<any> {
+    return new Observable(observer => {
+      if (! this.authService.getAuth()) {
+        observer.next(null);
+        return;
+      }
+      this.http.get<any>(environment.API_URL + 'data/accounts')
+        .subscribe(
+          response => {
+            observer.next(response.accounts);
+          },
+          async response => {
+            await this.authService.logout(response.error.message);
+            observer.next(null);
+            
+          });
+    });
+  }
+
+  getCards(): Observable<any> {
+    return new Observable(observer => {
+      if (! this.authService.getAuth()) {
+        observer.next(null);
+        return;
+      }
+      this.http.get<any>(environment.API_URL + 'data/cards')
+        .subscribe(
+          response => {
+            observer.next(response.cards);
+          },
+          async response => {
+            await this.authService.logout(response.error.message);
+            observer.next(null);
+            
+          });
+    });
+  }
+
+  getAccountDetails(id: string): Observable<any> {
+    return new Observable(observer => {
+      if (! this.authService.getAuth()) {
+        observer.next(null);
+        return;
+      }
+      this.http.get<any>(environment.API_URL + `data/accounts/${id}`)
+        .subscribe(
+          response => {
+            observer.next(response.account);
+          },
+          async response => {
+            await this.authService.logout(response.error.message);
+            observer.next(null);
+          });
+    });
+  }
+
+  getCardDetails(id: string): Observable<any> {
+    return new Observable(observer => {
+      if (! this.authService.getAuth()) {
+        observer.next(null);
+        return;
+      }
+      this.http.get<any>(environment.API_URL + `data/cards/${id}`)
+        .subscribe(
+          response => {
+            observer.next(response.card);
+          },
+          async response => {
+            await this.authService.logout(response.error.message);
+            observer.next(null);
+          });
+    });
   }
 }

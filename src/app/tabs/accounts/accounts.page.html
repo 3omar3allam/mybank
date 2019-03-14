@@ -1,0 +1,37 @@
+<ion-header>
+    <app-header [title]="'Accounts'"></app-header>
+</ion-header>
+<ion-content padding>
+    <ion-spinner *ngIf='isLoading' class="spinner" name="bubbles"></ion-spinner>
+    <div *ngIf="!isLoading && isAuthenticated">
+        <ion-toolbar *ngIf="accounts && accounts.length">
+            <ion-title class="summary">
+                <div>
+                    {{accounts.length}} {{accounts.length == 1?'Account':'Accounts'}}
+                </div>
+                <div>
+                    Total: {{totalBalace}} EGP
+                </div>
+            </ion-title>
+        </ion-toolbar>
+        <ion-card *ngFor="let account of accounts">
+            <ion-card-header>
+                <ion-card-subtitle>
+                    {{account.plan}}
+                </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content class="content">
+                <span>
+                    {{account.balance}} EGP
+                </span>
+                <span>
+                    <ion-buttons slot="end" [routerLink]="'/accounts/'+account.id" >
+                        <ion-button>
+                            <ion-icon name="arrow-round-forward"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                </span>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>

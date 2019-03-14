@@ -1,0 +1,28 @@
+<ion-header>
+  <app-header [title]="'Accounts'" [baseHref]="backRef"></app-header>
+</ion-header>
+<ion-content padding>
+  <ion-spinner *ngIf='isLoading' class="spinner" name="bubbles"></ion-spinner>
+  <div *ngIf="!isLoading && isAuthenticated && account" class="account">
+    <ion-item>
+      Account Id: {{accountId}}
+    </ion-item>
+    <ion-item class="plan">
+      {{account.plan}}
+    </ion-item>
+    <ion-item class="branch">
+      Branch: {{account.branch}}
+    </ion-item>
+    <ion-item>
+      Created At: {{account.startDate}}
+    </ion-item>
+    <ion-item>
+      Current Balance: {{account.balance}}
+    </ion-item>
+    <ion-item *ngIf="account.card">
+      <ion-buttons>
+        <ion-button color="primary" (click)="viewCard(account.card)">View Attached Card</ion-button>
+      </ion-buttons>
+    </ion-item>
+  </div>
+</ion-content>

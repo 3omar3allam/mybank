@@ -1,0 +1,21 @@
+<ion-header>
+    <app-header [title]="'MyBank'"></app-header>
+</ion-header>
+<ion-content padding>
+    <ion-card>
+        <ion-card-header>
+            <ion-title>Login</ion-title>
+        </ion-card-header>
+        <ion-card-content>
+            <form [formGroup]="form" (submit)="onLogin()">
+                <!--<ion-label color="dark" position="floating">username or email</ion-label>-->
+                <ion-input placeholder="username or email" minlength="6" autofocus formControlName="username_email"></ion-input>
+
+                <!--<ion-label color="dark" position="floating">password</ion-label>-->
+                <ion-input placeholder="password" type="password" name="password" formControlName="password" required></ion-input>
+
+                <ion-button [disabled]="form.invalid" type="submit" expand="block">login</ion-button>
+            </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

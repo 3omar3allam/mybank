@@ -4,6 +4,7 @@ const Card = require('../models/card');
 exports.getAccounts = async (req, res) => {
     try{
         const accounts = await Account.find({owner:req.userData.userId}, {plan:1, balance:1});
+        console.log()
         res.status(200).json({
             message: 'Success!',
             accounts: accounts.map(account => {
@@ -26,7 +27,7 @@ exports.getAccountDetails = async (req, res) => {
     try{
         const accountDetails = await Account.findOne(
             {_id: req.params.id, owner: req.userData.userId},
-            {_id: 0, startDate: 1, branch: 1, balance: 1, card: 1}
+            {_id: 0, plan: 1,startDate: 1, branch: 1, balance: 1, card: 1}
         );
         if(!accountDetails) {
             res.status(401).json({
@@ -41,7 +42,7 @@ exports.getAccountDetails = async (req, res) => {
     } catch(err){
         console.log(err);
         res.status(404).json({
-            message: 'Failed to fetch accounts',
+            message: 'Failed to fetch account details',
         });
     }
 };
@@ -65,7 +66,7 @@ exports.getCards = async (req, res) => {
     } catch(err){
         console.log(err);
         res.status(404).json({
-            message: 'Failed to fetch accounts',
+            message: 'Failed to fetch cards',
         });
     }
 };
@@ -74,7 +75,7 @@ exports.getCardDetails = async (req, res) => {
     try{
         const cardDetails = await Card.findOne(
             {_id: req.params.id, owner: req.userData.userId},
-            {_id: 0, expireDate: 1, cvc: 1, accounts: 1}
+            {_id: 0, number: 1, expireDate: 1, cvc: 1, accounts: 1}
         );
         if(!cardDetails) {
             res.status(401).json({
@@ -84,12 +85,12 @@ exports.getCardDetails = async (req, res) => {
         }
         res.status(200).json({
             message: 'Success!',
-            account: cardDetails,
+            card: cardDetails,
         });
     } catch(err){
         console.log(err);
         res.status(404).json({
-            message: 'Failed to fetch accounts',
+            message: 'Failed to fetch card details',
         });
     }
 };

@@ -7,30 +7,24 @@ import {ToastController} from '@ionic/angular';
 })
 export class CommonService {
 
-  private titleListener = new Subject<string>();
+  loadingListener = new Subject<boolean>();
+
   title: string;
 
   constructor(
     private toastController: ToastController
   ) {}
 
-
-  refresh(event){
-    setTimeout(() => {
-      event.target.complete();
-    }, 2000);
+  toggleLoading(value: boolean){
+    this.loadingListener.next(value);
   }
 
-  changeTitle(newTitle: string){
-    this.titleListener.next(newTitle);
+  getLoadingListener(): Observable<boolean>{
+    return this.loadingListener.asObservable();
   }
 
-  getTitleListener(): Observable<string>{
-    return <Observable<string>>this.titleListener.asObservable();
-  }
-
-  async showToast(message, closeText?:string, color?:string) {
-    if(!message) return;
+  async showToast(message, closeText?: string, color?: string) {
+    if (!message) { return; }
     const toast = await this.toastController.create({
       position: 'bottom',
       message: message,

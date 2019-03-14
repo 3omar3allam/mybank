@@ -1,16 +1,16 @@
-export class Account{
+export class Account {
   id: string;
-  startDate: Date;
+  startDate: string;
   branch: string;
   plan: string;
   balance: number;
   card: Card;
 }
 
-export class Card{
+export class Card {
   id: string;
   number: string;
-  expireDate: Date;
+  expireDate: string;
   cvc: string;
   type: string;
   accounts: Account[];

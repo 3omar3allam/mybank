@@ -1,0 +1,52 @@
+<ion-header>
+    <app-header [title]="'Cards'" [baseHref]="backRef"></app-header>
+</ion-header>
+
+<ion-content padding>
+  <ion-spinner *ngIf='isLoading' class="spinner" name="bubbles"></ion-spinner>
+  <ion-grid *ngIf="!isLoading && isAuthenticated && card">
+      <ion-row>
+          <ion-col size="6">Name on Card:</ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col offset="4">
+              <ion-input readonly [value]="owner"></ion-input>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col size="6">Card Number:</ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col offset="4">
+              <ion-input readonly [value]="card.number"></ion-input>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col size="6">Expire Date:</ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col offset="4">
+              <ion-input readonly [value]="card.expireDate"></ion-input>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col size="4">CVC:</ion-col>
+          <ion-col class="cvc">
+              <ion-input class="field" [value]="card.cvc" readonly [type]="showCvc? 'text':'password'"></ion-input>
+              <ion-checkbox class="check" [(ngModel)]="showCvc" color="dark"></ion-checkbox>
+          </ion-col>
+      </ion-row>
+      <ion-row *ngIf="card.accounts && card.accounts.length">
+          <ion-col><strong>Linked Account{{card.accounts.length? 's':''}}</strong></ion-col>
+      </ion-row>
+      <ion-row *ngFor="let account of card.accounts">
+          <ion-col offset="4"></ion-col>
+            <ion-buttons>
+                  <ion-button (click)="viewAccount(account)">{{account}}</ion-button>
+              </ion-buttons>
+      </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {CommonService} from '../shared/common.service';
 import {AuthService} from '../shared/auth.service';
 
 @Component({
@@ -13,29 +12,24 @@ export class TabsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private commonService: CommonService,
     private authService: AuthService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.isAuthenticated = this.authService.getAuth();
-    this.authService.getAuthListener().subscribe(auth => {
+    if (!this.isAuthenticated) {
+      await this.router.navigate(['/']);
+    }
+    this.authService.getAuthListener().subscribe(async auth => {
       this.isAuthenticated = auth;
-      if(!auth){
-        this.commonService.changeTitle("");
-        this.router.navigateByUrl('/');
+      if (!auth) {
+        await this.router.navigate(['/']);
       }
     });
   }
-  changeTab(tab) {
-    if(tab === 'home'){
-      this.commonService.changeTitle("");
-      this.router.navigateByUrl('/');
-    }
-    else {
-      let pageName = `${tab[0].toUpperCase()}${tab.substr(1)}`
-      this.commonService.changeTitle(pageName);
-      this.router.navigateByUrl(tab);
-    }
+  async changeTab(tab) {
+    const route = tab === 'login' ? '/' : `/${tab}`;
+
+    await this.router.navigate([route]);
   }
 }

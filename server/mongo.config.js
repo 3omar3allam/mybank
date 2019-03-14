@@ -9,8 +9,8 @@ mongoose.connect(
     }
 ).then(async () => {
     console.log('Connected to database!');
-    const fakeDb = new FakeDb();
-    await fakeDb.fillDb();
+    // const fakeDb = new FakeDb();
+    // await fakeDb.fillDb();
 }).catch((error) => {
     console.log('Database connection failed!');
     console.log(error);

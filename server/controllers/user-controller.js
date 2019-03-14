@@ -30,7 +30,7 @@ exports.auth = async (req, res) => {
             const token = jwt.sign(
                 {userId: user._id, username: user.username},
                 process.env.JWT_KEY,
-                {expiresIn: process.env.SESSION_EXPIRE}
+                {expiresIn: parseInt(process.env.SESSION_EXPIRE)}
             );
             const {_id, password, ...rest} = user.toObject();
             res.status(200).json({
