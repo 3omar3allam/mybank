@@ -1,7 +1,0 @@
-{
-  "env": {
-    "MONGO_CONN_STR": "mongodb+srv://omar:yWaF2JSHUfQ26KbN@myapps-igpox.mongodb.net/mybank?retryWrites=true",
-    "JWT_KEY": "dn4ok23yf4rn834fr348yrfn34oliry347ic",
-    "SESSION_EXPIRE": 600
-  }
-}
