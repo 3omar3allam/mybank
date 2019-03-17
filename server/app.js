@@ -7,14 +7,9 @@ const app = new express();
 
 require('./mongo.config');
 
-const corsOptions = {
-    origin: 'http://localhost:8100',
-    optionsSuccessStatus: 200,
-};
-
 app.use('', express.static(path.join(__dirname,'templates')));
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

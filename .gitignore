@@ -4,6 +4,9 @@
 # server sensitive data:
 server/nodemon.json
 
+#templates 404 file
+server/templates/404.html 
+
 *~
 *.sw[mnpcod]
 *.log
